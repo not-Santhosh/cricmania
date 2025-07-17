@@ -11,11 +11,11 @@ class Tournament extends Model
     protected static function booted()
     {
         static::creating(function($model){
-            $model->tournament_id = self::generatePlayerID();
+            $model->tournament_id = self::generateTournamentId();
         });
     }
 
-    public function generatePlayerID() 
+    public function generateTournamentId() 
     {
         do {
             $code = mt_rand(10000000, 99999999);

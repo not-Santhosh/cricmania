@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreignId('team_2_id')->constrained('teams');
             $table->foreignId('winning_team_id')->constrained('teams')->nullable();
             $table->unsignedSmallInteger('victory_margin')->nullable();
+            $table->dateTime('start_time');
+            $table->string('venue')->nullable();
             $table->timestamps();
         });
     }

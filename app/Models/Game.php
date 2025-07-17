@@ -27,4 +27,12 @@ class Game extends Model
     {
         return $this->belongsToMany(Team::class);
     }
+
+    public function teamA() {
+        return $this->hasOne(Team::class,"team_1_id");
+    }
+
+    public function teamB() {
+        return $this->hasOne(Team::class, 'team_2_id');
+    }
 }

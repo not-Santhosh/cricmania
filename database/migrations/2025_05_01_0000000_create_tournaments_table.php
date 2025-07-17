@@ -23,7 +23,6 @@ return new class extends Migration
             $table->enum('status', ['upcoming', 'ongoing', 'completed'])->default('upcoming');
             $table->longText('description')->nullable();
             $table->foreignId('user_id')->constrained('users');
-            $table->string('venue')->nullable();
             $table->integer('prize_money')->default(0);
             $table->integer('entry_fee')->default(0);
             $table->string('registration_deadline')->nullable();
