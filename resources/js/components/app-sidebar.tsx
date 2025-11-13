@@ -24,8 +24,8 @@ const mainNavItems: NavItem[] = [
         icon: Swords
     },
     {
-        title: "My squads",
-        href: "/squads",
+        title: "My Teams",
+        href: "/teams",
         icon: Users
     }
 ];

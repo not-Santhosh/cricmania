@@ -24,9 +24,9 @@ export default function Dashboard() {
                 <div className="grid auto-rows-min gap-4 md:grid-cols-3">
                     {games.map((game) => {
                         return (
-                            <div>
+                            <div key={game.id}>
                                 <div className="flex flex-column gap-3">
-
+                                    <div className="text-lg font-bold">{game.name}</div>
                                 </div>
                             </div>
                         )
