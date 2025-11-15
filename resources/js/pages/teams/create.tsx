@@ -1,99 +1,99 @@
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import AppLayout from "@/layouts/app-layout";
 import { BreadcrumbItem } from "@/types";
-import { Head } from "@inertiajs/react";
-import { useForm } from "react-hook-form";
+import { Head, useForm } from "@inertiajs/react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Separator } from "@/components/ui/separator";
+import PlayerSkeleton from "@/components/player-skeleton";
 
 export const formSchema = z.object({
-  name: z.string()
-    .min(2, {
-      message: "Username must be at least 2 characters.",
-    })
-    .max(50, {
-      message: "Username cannot exceed 50 characters.",
-    }),
+    name: z.string()
+        .min(2, {
+            message: "Username must be at least 2 characters.",
+        })
+        .max(50, {
+            message: "Username cannot exceed 50 characters.",
+        }),
 });
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-      title: "Create Team",
-      href: "/teams",
+        title: "Create Team",
+        href: "/teams",
     }
 ];
 
 const CreateTeam = () => {
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema), // Connects Zod to React Hook Form
-        defaultValues: {
-            name: "",
-        },
+    const { data, setData, post, processing, errors, reset } = useForm({
+        name: "",
     });
 
-    const onSubmit = () => {}
+    const onSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        post(route("teams.store"), {
+            preserveScroll: true,
+            onSuccess: () => {
+                reset(); // optional: reset form after success
+            },
+        });
+    };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Create Team" />
-            <div className="max-w-4xl mx-4 mt-6">
-                <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                        <div className="md:w-1/2 sm:w-100">
-                            <FormField
-                                control={form.control}
-                                name="name"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Name <span className="text-red-400">*</span></FormLabel>
-                                        <FormControl>
-                                            <Input placeholder="Enter your team name..." {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
+            <div className="mx-4 mt-6">
+                <form onSubmit={onSubmit} className="space-y-8">
+                    <div className="space-y-6 max-w-lg w-full md:w-1/2">
+                        <div className="flex items-end gap-3 w-full max-w-lg">
+
+                            {/* INPUT */}
+                            <div className="w-full flex-grow">
+                                <label
+                                    htmlFor="name"
+                                    className="block font-medium mb-1"
+                                >
+                                    Team Name <span className="text-red-500">*</span>
+                                </label>
+
+                                <Input
+                                    id="name"
+                                    placeholder="Enter your team name..."
+                                    value={data.name}
+                                    onChange={(e) => setData("name", e.target.value)}
+                                />
+
+                                {/* ERROR MESSAGE */}
+                                {errors.name && (
+                                    <p className="text-sm font-medium text-destructive mt-2">
+                                        {errors.name}
+                                    </p>
                                 )}
-                            />
+                            </div>
+
+                            {/* BUTTON */}
+                            <div className="shrink-0">
+                                <Button
+                                    type="submit"
+                                    className="h-10"
+                                    disabled={processing}
+                                >
+                                    {processing ? "Saving..." : "Create Team"}
+                                </Button>
+                            </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-3 w-[100%]">
-                            <FormField
-                                control={form.control}
-                                name="name"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Name <span className="text-red-400">*</span></FormLabel>
-                                        <FormControl>
-                                            <Input placeholder="Enter your team name..." {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name="name"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Name <span className="text-red-400">*</span></FormLabel>
-                                        <FormControl>
-                                            <Input placeholder="Enter your team name..." {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                        </div>
-                        <Button type="submit">Submit</Button>
-                    </form>
-                </Form>
+                    </div>
+                </form>
+                <Separator className="my-8"/>
+                <div className="grid md:grid-cols-4 grid-cols-2 gap-3 text-center">
+                    {
+                        Array.from({ length: 15 }).map((_, index) => (
+                            <PlayerSkeleton key={index} />
+                        ))
+                    }
+                </div>
             </div>
         </AppLayout>
     );
