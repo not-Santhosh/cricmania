@@ -1,8 +1,9 @@
+import NewTeamDialog from "@/components/new-team-dialog";
 import { Button } from "@/components/ui/button";
 import AppLayout from "@/layouts/app-layout";
 import { BreadcrumbItem } from "@/types";
 import { Team } from "@/types/types";
-import { Head, Link, usePage } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -16,6 +17,22 @@ const breadcrumbs: BreadcrumbItem[] = [
 const TeamPage = () => {
   const { props } = usePage();
   const [teams, setTeams] = useState<Team[]>((props.teams as Team[]) || []);
+
+  const { data, setData, post, processing, errors, reset } = useForm({
+      name: (props.name as string) ?? "",
+  });
+
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(e);
+
+    post(route("teams.store"), {
+      preserveScroll: true,
+      onSuccess: () => {
+        reset();
+      },
+    });
+  };
   
   useEffect(() => {
 
@@ -26,11 +43,13 @@ const TeamPage = () => {
     <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="My Teams" />
       <div className="w-full flex justify-end my-4 px-4">
-        <Link href="/teams/create">
-          <Button>
-            <Plus />Create Team
-          </Button>
-        </Link>
+        <NewTeamDialog
+          title="Create Team"
+          onSubmit={onSubmit}
+          data={data}
+          setData={setData}
+          errors={errors}
+        />
       </div>
       <div className="max-w-4xl mx-auto mt-6 space-y-4">
         {teams.length === 0 && (

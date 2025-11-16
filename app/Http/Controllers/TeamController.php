@@ -15,7 +15,10 @@ class TeamController extends Controller
     public function index()
     {
         $teams = Team::all();
-        return Inertia::render('teams/team', ['teams' => $teams]);
+        return Inertia::render('teams/team', [
+            'teams' => $teams,
+            'name' => 'Team ' . Team::where('id', auth()->user()->id)->count() + 1
+        ]);
     }
 
     /**
@@ -24,7 +27,7 @@ class TeamController extends Controller
     public function create()
     {
         $name = 'Team ' . Team::where('id', auth()->user()->id)->count();
-        return Inertia::render('teams/create', ['name' => $name]);
+        return Inertia::render('teams/manage', ['name' => $name]);
     }
 
     /**
@@ -32,7 +35,16 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:25',
+        ]);
+
+        $team = Team::create([
+            'name' => $request->name,
+            'user_id' => auth()->user()->id,
+        ]);
+
+        return redirect()->route('teams.edit', ['team' => $team])->with('success', 'Team created successfully.');
     }
 
     /**
@@ -40,7 +52,8 @@ class TeamController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $team = Team::findOrFail($id);
+        return Inertia::render('teams/manage', ['team' => $team]);
     }
 
     /**
@@ -48,7 +61,8 @@ class TeamController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $team = Team::findOrFail($id);
+        return Inertia::render('teams/manage', ['team' => $team]);
     }
 
     /**
@@ -56,7 +70,16 @@ class TeamController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:25',
+        ]);
+
+        $team = Team::findOrFail($id);
+        $team->update([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->route('teams.edit', ['team' => $team])->with('success', 'Team updated successfully.');
     }
 
     /**

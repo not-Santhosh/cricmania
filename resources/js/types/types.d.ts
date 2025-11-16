@@ -52,9 +52,9 @@ export interface Team {
     id: number;
     team_id: number;
     name: string;
-    country_id: number;
-    state_id: number;
-    city_id: number;
+    country_id?: number;
+    state_id?: number;
+    city_id?: number;
     is_banned: boolean;
     created_at: string;
     updated_at: string;

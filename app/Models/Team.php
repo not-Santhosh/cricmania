@@ -15,12 +15,27 @@ class Team extends Model
         });
     }
 
-    public function generateTeamID() 
+    public static function generateTeamID() 
     {
         do {
             $code = mt_rand(10000000, 99999999);
         } while(self::where('team_id', $code)->exists());
 
         return $code;
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function state()
+    {
+        return $this->belongsTo(State::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
     }
 }
