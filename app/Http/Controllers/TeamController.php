@@ -14,7 +14,7 @@ class TeamController extends Controller
      */
     public function index()
     {
-        $teams = Team::all();
+        $teams = Team::with('players')->get();
         return Inertia::render('teams/team', [
             'teams' => $teams,
             'name' => 'Team ' . Team::where('id', auth()->user()->id)->count() + 1
@@ -61,7 +61,7 @@ class TeamController extends Controller
      */
     public function edit(string $id)
     {
-        $team = Team::findOrFail($id);
+        $team = Team::with('players')->findOrFail($id);
         return Inertia::render('teams/manage', ['team' => $team]);
     }
 

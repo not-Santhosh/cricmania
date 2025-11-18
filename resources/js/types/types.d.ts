@@ -1,9 +1,3 @@
-export interface Team {
-    id: number;
-    name: string;
-    logo: string;
-}
-  
 export interface Game {
     id: number;
     name: string | null;
@@ -48,6 +42,23 @@ export interface Tournament {
     updated_at: string;
 }
 
+export interface Player {
+    id: number;
+    team_id: number;
+    user_id: number;
+    name: string;
+    player_id: number;
+    jersey_number: number | null;
+    prefered_role: string | null;
+    phone: string | null;
+    email: string | null;
+    counry_id: number | null;
+    state_id: number | null;
+    city_id: number | null;
+    created_at: string;
+    updated_at: string;
+}
+
 export interface Team {
     id: number;
     team_id: number;
@@ -55,6 +66,7 @@ export interface Team {
     country_id?: number;
     state_id?: number;
     city_id?: number;
+    players?: Player[];
     is_banned: boolean;
     created_at: string;
     updated_at: string;

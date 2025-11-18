@@ -38,4 +38,9 @@ class Team extends Model
     {
         return $this->belongsTo(City::class);
     }
+
+    public function players()
+    {
+        return $this->hasMany(Player::class);
+    }
 }
