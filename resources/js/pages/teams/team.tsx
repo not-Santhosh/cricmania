@@ -5,6 +5,7 @@ import AppLayout from "@/layouts/app-layout";
 import { BreadcrumbItem } from "@/types";
 import { Team } from "@/types/types";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
+import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -57,41 +58,38 @@ const TeamPage = () => {
         {teams.length === 0 && (
           <div className="text-center text-gray-500">No Teams available.</div>
         )}
-        <div className="grid md:grid-cols-2 grid-cols-1 items-center p-4 gap-3">
+        <div className="grid md:grid-cols-3 grid-cols-2 items-center p-4 gap-3">
           {teams.map((team) => (
-            // ... inside the grid structure
             <Link href={route("teams.edit", team.id)} key={team.id}>
               <div
                 className="
-                  p-4 border border-gray-100 rounded-lg
-                  bg-white flex items-center justify-between
+                  p-4 border rounded-lg
+                  flex flex-col items-center justify-center
                   hover:shadow-md transition-shadow duration-200
                 "
               >
-                {/* Left Side: Avatar/Icon + Info */}
-                <div className="flex items-start space-x-3">
-                  {/* 1. Icon/Avatar */}
+                <div className="flex flex-col space-y-3">
                   <div className="mt-1">
-                      {/* <Avatar /> or <Icon className="text-indigo-500" /> */}
+                    <img
+                      src={"https://github.com/shadcn.png"}
+                      alt={team.name}
+                      className="w-20 h-20 rounded-full object-cover"
+                    />
                   </div>
-                  {/* 2. Team Name and Description */}
                   <div>
-                    <div className="text-xl font-semibold text-gray-800">{team.name}</div>
-                    <p className="text-sm text-gray-500 mt-0.5">
-                      Click to manage team details
-                    </p>
+                    <div className="text-xl font-semibold text-gray-400 text-center">{team.name}</div>
                   </div>
                 </div>
                 
-                {/* Right Side: Member Count */}
-                <div className="text-right flex-shrink-0">
-                  <div className="text-2xl font-bold text-indigo-600">
-                    {team.players?.length || 0}
-                    <span className="text-lg font-normal text-gray-400"> / 15</span>
-                  </div>
+                {/* This inner div contains the member count */}
+                <div className="flex flex-col mt-4 space-y-1">
                   <p className="text-xs text-gray-500 uppercase tracking-wider">
                     MEMBERS
                   </p>
+                  <div className="text-2xl font-bold text-indigo-600 ms-2">
+                    {team.players?.length || 0}
+                    <span className="text-lg font-normal text-gray-400"> / 15</span>
+                  </div>
                 </div>
               </div>
             </Link>

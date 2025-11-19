@@ -42,10 +42,29 @@ const ManageTeam = () => {
             <div className="mx-4 mt-6">
                 <form onSubmit={onSubmit} className="space-y-8">
                     <div className="space-y-6 max-w-lg w-full md:w-1/2">
+                        <div className="mb-3">
+                            <div className="flex items-center space-x-3">
+                                <input 
+                                    type="file" 
+                                    id="logo-upload" 
+                                    className="hidden"
+                                />
+                                <label 
+                                    htmlFor="logo-upload" 
+                                    className="
+                                        px-4 py-2 border border-gray-600 rounded-lg 
+                                        bg-gray-800 text-gray-200 text-sm font-medium 
+                                        hover:bg-gray-700 transition cursor-pointer
+                                    "
+                                >
+                                    Upload New Logo
+                                </label>
+                            </div>
+                        </div>
                         <div className="flex items-end gap-3 w-full max-w-lg">
                             <div className="w-full flex-grow">
                                 <label htmlFor="name" className="block font-medium mb-1">
-                                    Team Name <span className="text-red-500">*</span>
+                                    Name <span className="text-red-500">*</span>
                                 </label>
 
                                 <Input
