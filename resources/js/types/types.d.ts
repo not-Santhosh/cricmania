@@ -63,6 +63,7 @@ export interface Team {
     id: number;
     team_id: number;
     name: string;
+    logo: FILE | string | null;
     country_id?: number;
     state_id?: number;
     city_id?: number;

@@ -68,7 +68,7 @@ const TeamPage = () => {
                   hover:shadow-md transition-shadow duration-200
                 "
               >
-                <div className="flex flex-col space-y-3">
+                <div className="flex flex-col justify-center items-center space-y-3">
                   <div className="mt-1">
                     <img
                       src={"https://github.com/shadcn.png"}
