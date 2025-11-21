@@ -19,9 +19,15 @@ const NewTeamDialog = ({ title, onSubmit, data, setData, errors }: NewTeamDialog
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button>
-                    <Plus />Create Team
-                </Button>
+                <Plus 
+                    className="
+                    text-gray-500 dark:text-gray-400 
+                    animate-pulse 
+                    transition-colors 
+                    "
+                    size={40}
+                    strokeWidth={2}
+                />
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <form onSubmit={onSubmit}>

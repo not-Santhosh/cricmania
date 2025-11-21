@@ -52,6 +52,7 @@ export interface Player {
     prefered_role: string | null;
     phone: string | null;
     email: string | null;
+    dob: Date | string | null;
     counry_id: number | null;
     state_id: number | null;
     city_id: number | null;

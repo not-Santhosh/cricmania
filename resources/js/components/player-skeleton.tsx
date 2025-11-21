@@ -1,5 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { Plus } from "lucide-react";
+import PlayerDialog from "./player-dialog";
 
 export default function PlayerSkeletonDotted() {
   return (
@@ -14,15 +15,7 @@ export default function PlayerSkeletonDotted() {
         border-2 border-dashed border-gray-400 dark:border-gray-600
       "
     >
-      <Plus 
-        className="
-          text-gray-500 dark:text-gray-400 
-          animate-pulse 
-          transition-colors 
-        "
-        size={40}
-        strokeWidth={2}
-      />
+      <PlayerDialog />
     </div>
   );
 }

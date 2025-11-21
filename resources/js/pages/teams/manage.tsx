@@ -77,7 +77,7 @@ const ManageTeam = () => {
                     </div>
                 </form>
                 <Separator className="my-8" />
-                <div className="grid md:grid-cols-4 grid-cols-2 gap-3 text-center" onClick={() => setIsModalOpen(!isModalOpen)}>
+                <div className="grid md:grid-cols-4 grid-cols-2 mx-3 gap-5 text-center" onClick={() => setIsModalOpen(!isModalOpen)}>
                     {
                         Array.from({ length: 15 }).map((_, index) => (
                             <PlayerSkeletonDotted key={index} />
